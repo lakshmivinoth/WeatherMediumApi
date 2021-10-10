@@ -1,8 +1,7 @@
 package com.hackerrank.weather.controller;
 
 import java.text.ParseException;
-
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.hackerrank.weather.exception.InvalidRequestException;
-import com.hackerrank.weather.exception.WeatherDetailsNotFoundException;
 import com.hackerrank.weather.model.Weather;
 import com.hackerrank.weather.service.WeatherService;
 
@@ -67,7 +65,7 @@ public class WeatherApiRestController {
 	    	
 	    	if(weatherDetail.isEmpty()) {
 	    		Log.error("Weather Details not Found");
-	    		throw new WeatherDetailsNotFoundException("WeatherDetails not Found");
+	    		return new ArrayList<Weather>();
 	    	}
 	    	
 	    	return weatherDetail;
@@ -87,7 +85,7 @@ public class WeatherApiRestController {
 	    	}
 	    	else {
 	    		Log.error("Weather Details not Found");
-	    		throw new WeatherDetailsNotFoundException("WeatherDetails not Found");
+	    		return new ResponseEntity<Weather>(HttpStatus.NOT_FOUND);
 	    	}
 	    }
 	 
